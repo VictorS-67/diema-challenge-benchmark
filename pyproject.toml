@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "emo-mocap"
+version = "0.1.0"
+description = "Emotion recognition from 3D motion capture skeletal data using ST-GCN models"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.0",
+    "pytorch-lightning>=2.0",
+    "numpy>=1.21",
+    "pandas>=1.5",
+    "matplotlib>=3.7",
+    "torchmetrics>=0.11",
+    "pybvh>=0.4",
+    "pybvh-ml>=0.2",
+    "pyyaml>=6.0",
+    "tensorboard>=2.14",
+]
+
+[tool.setuptools.packages.find]
+include = ["emo_mocap*"]
+
+[project.scripts]
+emo-train = "emo_mocap.cli.train:main"
+emo-evaluate = "emo_mocap.cli.evaluate:main"
+emo-predict = "emo_mocap.cli.predict:main"
+emo-preprocess = "emo_mocap.cli.preprocess:main"
+emo-generate-splits = "emo_mocap.cli.generate_splits:main"

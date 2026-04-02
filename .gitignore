@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# Data (research-licensed, not distributed)
+data/raw/
+data/processed/
+
+# Training artifacts
+checkpoints/
+*.ckpt
+wandb/
+
+# Logs (except committed baseline results)
+logs/*/
+!logs/lopo_10fold_results.csv

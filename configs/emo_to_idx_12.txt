@@ -1,0 +1,12 @@
+anger 0
+contempt 1
+disgust 2
+fear 3
+joy 4
+sadness 5
+surprise 6
+jealousy 7
+shame 8
+guilt 9
+gratitude 10
+pride 11
