@@ -27,4 +27,4 @@ wandb/
 
 # Logs (except committed baseline results)
 logs/*/
-!logs/lopo_10fold_results.csv
+!logs/lpo_10fold_results.csv

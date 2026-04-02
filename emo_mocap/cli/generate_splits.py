@@ -1,4 +1,4 @@
-"""Export LOPO cross-validation splits to pickle files.
+"""Export LPO cross-validation splits to pickle files.
 
 Optional tool for inspecting or saving splits to disk. Not required
 for training — emo-train can generate splits on-the-fly with --fold
@@ -15,12 +15,12 @@ from pathlib import Path
 
 import pybvh_ml
 
-from emo_mocap.data.splits import generate_lopo_splits, parse_diema_actor
+from emo_mocap.data.splits import generate_lpo_splits, parse_diema_actor
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Export LOPO cross-validation splits to pickle files"
+        description="Export lpo cross-validation splits to pickle files"
     )
     parser.add_argument("--data-path", required=True,
                         help="Path to the preprocessed .npz file")
@@ -38,7 +38,7 @@ def main():
         return
 
     # Generate splits
-    splits = generate_lopo_splits(filenames, args.num_folds)
+    splits = generate_lpo_splits(filenames, args.num_folds)
 
     # Save to output directory
     output_dir = Path(args.output_dir)

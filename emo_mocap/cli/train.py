@@ -5,7 +5,7 @@ Usage:
     emo-train --config configs/diema7_stgcn.yaml
     emo-train --config configs/diema7_stgcn.yaml --override training.max_epochs=50
 
-    # LOPO cross-validation (on-the-fly split, no pkl files needed)
+    # lpo cross-validation (on-the-fly split, no pkl files needed)
     emo-train --config configs/diema12_stgcn.yaml --fold 3 --num-folds 10
 """
 
@@ -24,7 +24,7 @@ import pybvh_ml
 from emo_mocap.tools.config import load_config_with_overrides
 from emo_mocap.models.registry import get_model
 from emo_mocap.data.loader import Loader
-from emo_mocap.data.splits import generate_lopo_splits
+from emo_mocap.data.splits import generate_lpo_splits
 from emo_mocap.training.lightning_model import LightningModel
 
 
@@ -73,8 +73,8 @@ def _build_pipeline(cfg):
     return pybvh_ml.AugmentationPipeline(steps) if steps else None
 
 
-def _build_lopo_split(data_path, fold, num_folds):
-    """Generate a LOPO split dict on-the-fly for the given fold.
+def _build_lpo_split(data_path, fold, num_folds):
+    """Generate a lpo split dict on-the-fly for the given fold.
 
     Loads filenames from the npz, generates all K splits deterministically,
     and returns the split dict for the requested fold.
@@ -84,9 +84,9 @@ def _build_lopo_split(data_path, fold, num_folds):
     if not filenames:
         raise ValueError(
             f"No filenames found in {data_path}. "
-            "Cannot generate LOPO splits without filename metadata."
+            "Cannot generate lpo splits without filename metadata."
         )
-    all_splits = generate_lopo_splits(filenames, num_folds)
+    all_splits = generate_lpo_splits(filenames, num_folds)
     return all_splits[fold - 1]  # fold is 1-indexed from CLI
 
 
@@ -96,21 +96,21 @@ def main():
     parser.add_argument("--override", nargs="*", default=[], help="Config overrides (key=value)")
     parser.add_argument("--test-after", action="store_true", help="Run test after training")
     parser.add_argument("--fold", type=int, default=None,
-                        help="Fold number for LOPO cross-validation (1-indexed)")
+                        help="Fold number for lpo cross-validation (1-indexed)")
     parser.add_argument("--num-folds", type=int, default=None,
-                        help="Total number of LOPO folds")
+                        help="Total number of lpo folds")
     args = parser.parse_args()
 
     cfg = load_config_with_overrides(args.config, args.override)
 
-    # Determine split: on-the-fly LOPO or from config
-    use_lopo = args.fold is not None or args.num_folds is not None
-    if use_lopo:
+    # Determine split: on-the-fly lpo or from config
+    use_lpo = args.fold is not None or args.num_folds is not None
+    if use_lpo:
         if args.fold is None or args.num_folds is None:
             parser.error("--fold and --num-folds must be used together")
         if args.fold < 1 or args.fold > args.num_folds:
             parser.error(f"--fold must be between 1 and {args.num_folds}")
-        split_dict = _build_lopo_split(cfg.data.data_path, args.fold, args.num_folds)
+        split_dict = _build_lpo_split(cfg.data.data_path, args.fold, args.num_folds)
         split_path = None
     else:
         split_dict = None
@@ -159,7 +159,7 @@ def main():
     log_cfg = cfg.logging
     experiment_name = log_cfg.experiment_name
     if experiment_name is None:
-        if use_lopo:
+        if use_lpo:
             experiment_name = f"{cfg.model.type}_fold{args.fold:02d}"
         else:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

@@ -17,16 +17,16 @@ Classify 12 emotions (anger, contempt, disgust, fear, joy, sadness, surprise, je
 
 ## Baseline Results
 
-Evaluation uses Leave-One-Performer-Out (LOPO) cross-validation: the dataset's 92 performers are split into K groups, and each fold holds out one group entirely for testing while training on the rest. This ensures the model is always evaluated on performers it has never seen during training, testing its ability to generalize across individuals rather than memorize actor-specific movement patterns.
+Evaluation uses Leave-Performer-Out (LPO) cross-validation: the dataset's 92 performers are split into K groups, and each fold holds out one group entirely for testing while training on the rest. This ensures the model is always evaluated on performers it has never seen during training, testing its ability to generalize across individuals rather than memorize actor-specific movement patterns.
 
-10-fold LOPO on 9,935 clips from 92 performers:
+10-fold LPO on 9,935 clips from 92 performers:
 
 | Metric   | Mean   | Std    |
 |----------|--------|--------|
 | Accuracy | 27.11% | 3.67%  |
 | F1 Score | 25.21% | 4.49%  |
 
-Per-fold results in [`logs/lopo_10fold_results.csv`](logs/lopo_10fold_results.csv).
+Per-fold results in [`logs/lpo_10fold_results.csv`](logs/lpo_10fold_results.csv).
 
 Random baseline: 8.33% (1/12 classes).
 
@@ -63,10 +63,10 @@ Single fold:
 emo-train --config configs/diema12_stgcn.yaml --fold 1 --num-folds 10 --test-after
 ```
 
-All 10 LOPO folds:
+All 10 LPO folds:
 
 ```bash
-make lopo-train CONFIG=configs/diema12_stgcn.yaml FOLDS=10
+make lpo-train CONFIG=configs/diema12_stgcn.yaml FOLDS=10
 ```
 
 Monitor training:

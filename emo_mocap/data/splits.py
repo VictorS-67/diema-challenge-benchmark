@@ -1,4 +1,4 @@
-"""LOPO (Leave-One-Performer-Out) cross-validation split generation.
+"""lpo (Leave-Performer-Out) cross-validation split generation.
 
 Generates K-fold splits where each fold holds out a group of actors
 for validation/test, and uses the rest for training. Splits are
@@ -29,12 +29,12 @@ def parse_diema_actor(filename_stem: str) -> str:
     return f"{parts[0]}_{parts[1]}"
 
 
-def generate_lopo_splits(
+def generate_lpo_splits(
     filenames: list[str],
     num_folds: int,
     actor_fn=parse_diema_actor,
 ) -> list[dict]:
-    """Generate K-fold LOPO splits from a list of filenames.
+    """Generate K-fold lpo splits from a list of filenames.
 
     Steps:
     1. Extract actor IDs from filenames via actor_fn
@@ -97,7 +97,7 @@ def generate_lopo_splits(
         splits.append({
             "train": train_entries,
             "val": val_entries,
-            "test": val_entries,  # val == test for LOPO
+            "test": val_entries,  # val == test for lpo
         })
 
     return splits

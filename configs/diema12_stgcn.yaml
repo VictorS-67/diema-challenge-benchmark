@@ -4,7 +4,7 @@
 
 data:
   data_path: data/processed/diema12_quat.npz
-  split_path: null              # use --fold/--num-folds for LOPO
+  split_path: null              # use --fold/--num-folds for LPO
   target_repr: "6d"             # 6D continuous representation:
                                 # no gimbal lock, no double-cover ambiguity
   num_workers: 16
