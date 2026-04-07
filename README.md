@@ -12,7 +12,7 @@ Classify 12 emotions (anger, contempt, disgust, fear, joy, sadness, surprise, je
 
 - Input representation: 6D continuous rotations ([Zhou et al.](https://arxiv.org/abs/1812.07035))
 - 10-layer GCN: 64 → 128 → 256 channels
-- 25-joint DIEM-A skeleton
+- 24-joint DIEM-A skeleton
 - On-the-fly augmentation: yaw rotation, lateral mirroring, speed perturbation, joint noise
 
 ## Baseline Results
