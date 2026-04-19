@@ -14,8 +14,8 @@ dependencies = [
     "pandas>=1.5",
     "matplotlib>=3.7",
     "torchmetrics>=0.11",
-    "pybvh>=0.4",
-    "pybvh-ml>=0.2",
+    "pybvh==0.4",
+    "pybvh-ml==0.2",
     "pyyaml>=6.0",
     "tensorboard>=2.14",
 ]
